@@ -84,9 +84,9 @@ export function getMenuList(pathname: string): Group[] {
           submenus: []
         },
         {
-          href: "/suivi-ca",
+          href: "/turnover",
           label: "Suivi CA",
-          active: pathname.includes("/suivi-ca"),
+          active: pathname.includes("/turnover"),
           icon: Receipt,
           submenus: []
         },
@@ -126,9 +126,9 @@ export function getMenuList(pathname: string): Group[] {
           submenus: []
         },
         {
-          href: "/inventory",
-          label: "Courants stocks",
-          active: pathname.includes("/inventory"),
+          href: "/lessons",
+          label: "Cours en stocks",
+          active: pathname.includes("/lessons"),
           icon: Database,
           submenus: []
         },
