@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import Link from "next/link";
 import { PanelsTopLeft, Plus } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -97,20 +97,18 @@ export default function Contacts() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="z-[50] sticky top-0 w-full bg-background/95 border-b backdrop-blur-sm dark:bg-black/[0.6] border-border/40">
-        <div className="container h-14 flex items-center">
-          <Link
-            href="/"
-            className="flex justify-start items-center hover:opacity-85 transition-opacity duration-300"
-          >
-            <PanelsTopLeft className="w-6 h-6 mr-3" />
-            <span className="font-bold">shadcn/ui sidebar</span>
-            <span className="sr-only">shadcn/ui sidebar</span>
-          </Link>
+      <header className="z-[10] sticky top-0 w-full bg-background/95 border-b backdrop-blur-sm dark:bg-black/[0.6] border-border/40">
+        <div className="ml-10 container h-14 flex items-center">
+          <h2>Interventions </h2>
         </div>
       </header>
 
-      <main className="flex flex-col flex-grow p-6 bg-gray-100 dark:bg-gray-900">
+      <main className="m-10 min-h-[calc(100vh-57px-97px)] flex-1">
+      <Card>
+          <CardHeader>
+            <CardTitle>Interventions</CardTitle>
+          </CardHeader>
+          <CardContent>
         {/* Bouton pour ajouter un nouvel établissement */}
         <div className="flex justify-between items-center mb-6">
           <h4 className="text-xl font-bold">Mes établissements</h4>
@@ -260,6 +258,11 @@ export default function Contacts() {
             ))}
           </Accordion>
         </div>
+        </CardContent>
+          <CardFooter>
+            <Button>Ajouter</Button>
+          </CardFooter>
+        </Card>
       </main>
     </div>
   );
