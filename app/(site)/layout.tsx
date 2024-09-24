@@ -1,3 +1,5 @@
+import AdminPanelLayout from "@/components/sidebar/admin-panel-layout";
+
 export default function MainLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,7 @@ export default function MainLayout({
 }>) {
   return (
     <main>
-      {children}
+      <AdminPanelLayout>{children}</AdminPanelLayout>;
     </main>
   );
 }
