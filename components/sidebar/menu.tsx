@@ -15,6 +15,7 @@ import {
   TooltipContent,
   TooltipProvider
 } from "@/components/ui/tooltip";
+import { ModeToggle } from "@/components/mode-toggle";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -103,6 +104,9 @@ export function Menu({ isOpen }: MenuProps) {
               )}
             </li>
           ))}
+          <li className="w-full grow flex items-end ">
+            <ModeToggle></ModeToggle>
+          </li>
         </ul>
       </nav>
     </ScrollArea>

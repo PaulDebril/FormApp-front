@@ -8,19 +8,12 @@ import { Label } from "@/components/ui/label";
 export default function Documents() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="z-[50] sticky top-0 w-full bg-background/95 border-b backdrop-blur-sm dark:bg-black/[0.6] border-border/40">
-        <div className="container h-14 flex items-center">
-          <Link
-            href="/"
-            className="flex justify-start items-center hover:opacity-85 transition-opacity duration-300"
-          >
-            <PanelsTopLeft className="w-6 h-6 mr-3" />
-            <span className="font-bold">shadcn/ui sidebar</span>
-            <span className="sr-only">shadcn/ui sidebar</span>
-          </Link>
+      <header className="z-[10] sticky top-0 w-full bg-background/95 border-b backdrop-blur-sm dark:bg-black/[0.6] border-border/40">
+        <div className="ml-10 container h-14 flex items-center">
+            <h2>Mes documents </h2>
         </div>
       </header>
-      <main className="min-h-[calc(100vh-57px-97px)] flex-1 p-6 bg-gray-100 dark:bg-gray-900">
+      <main className="m-10 min-h-[calc(100vh-57px-97px)] flex-1">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
           <Card>
