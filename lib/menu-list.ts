@@ -1,11 +1,18 @@
 import {
-  Tag,
-  Users,
-  Settings,
-  Bookmark,
-  SquarePen,
   LayoutGrid,
-  LucideIcon
+  LucideIcon,
+  ClipboardCheck,
+  CalendarDays,
+  ReceiptText,
+  Receipt,
+  ChartColumnBig,
+  Building2,
+  AlignVerticalSpaceBetween,
+  UserRoundSearch,
+  Database,
+  File,
+  BriefcaseBusiness,
+  FileSpreadsheet
 } from "lucide-react";
 
 type Submenu = {
@@ -35,7 +42,7 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "/",
           label: "Accueil",
-          active: pathname.includes("/"),
+          active: pathname.includes("/home"),
           icon: LayoutGrid,
           submenus: []
         }
@@ -48,7 +55,7 @@ export function getMenuList(pathname: string): Group[] {
           href: "/tasks",
           label: "Taches",
           active: pathname.includes("/tasks"),
-          icon: SquarePen,
+          icon: ClipboardCheck,
           submenus: [
             // {
             //   href: "/posts",
@@ -66,77 +73,77 @@ export function getMenuList(pathname: string): Group[] {
           href: "/interventions",
           label: "Interventions",
           active: pathname.includes("/interventions"),
-          icon: Bookmark,
+          icon: CalendarDays,
           submenus: []
         },
         {
           href: "/missions",
           label: "Missions et contrats",
           active: pathname.includes("/missions"),
-          icon: Tag,
+          icon: ReceiptText,
           submenus: []
         },
         {
           href: "/suivi-ca",
           label: "Suivi CA",
           active: pathname.includes("/suivi-ca"),
-          icon: Tag,
+          icon: Receipt,
           submenus: []
         },
         {
           href: "/billing",
           label: "Facturation",
           active: pathname.includes("/billing"),
-          icon: Tag,
+          icon: FileSpreadsheet,
           submenus: []
         },
         {
           href: "/bpf",
           label: "Bilan pédagogique et financier",
           active: pathname.includes("/bpf"),
-          icon: Tag,
+          icon: ChartColumnBig,
           submenus: []
         },
         {
           href: "/formations",
           label: "Organismes de formation",
           active: pathname.includes("/formations"),
-          icon: Tag,
+          icon: Building2,
           submenus: []
         },
         {
           href: "/intermediate",
           label: "Intermédiaires",
           active: pathname.includes("/intermediate"),
-          icon: Tag,
+          icon: AlignVerticalSpaceBetween,
           submenus: []
         },
         {
           href: "/contacts",
           label: "Contacts",
           active: pathname.includes("/contacts"),
-          icon: Tag,
+          icon: UserRoundSearch,
           submenus: []
         },
         {
           href: "/inventory",
           label: "Courants stocks",
           active: pathname.includes("/inventory"),
-          icon: Tag,
+          icon: Database,
           submenus: []
         },
         {
           href: "/documents",
           label: "Mes documents",
           active: pathname.includes("/documents"),
-          icon: Tag,
+          icon: File,
           submenus: []
         },
         {
           href: "/applications",
           label: "Candidatures",
           active: pathname.includes("/applications"),
-          icon: Tag,
+          icon: BriefcaseBusiness,
           submenus: []
         },
       ]
