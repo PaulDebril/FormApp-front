@@ -1,4 +1,5 @@
 import AdminPanelLayout from "@/components/sidebar/admin-panel-layout";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export default function MainLayout({
   children,
@@ -7,7 +8,16 @@ export default function MainLayout({
 }>) {
   return (
     <main>
-      <AdminPanelLayout>{children}</AdminPanelLayout>;
+      <AdminPanelLayout>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </AdminPanelLayout>
     </main>
   );
 }

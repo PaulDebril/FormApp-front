@@ -28,7 +28,7 @@ export default function Formations() {
             <h2>Organismes de formation</h2>
         </div>
       </header>
-      <main className="min-h-[calc(100vh-57px-97px)] flex-1 p-6 bg-gray-100 dark:bg-gray-900">
+      <main className="m-10 min-h-[calc(100vh-57px-97px)] flex-1">
         <h2 className="text-2xl font-bold mb-4">Organismes de formation</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
