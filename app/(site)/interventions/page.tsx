@@ -22,7 +22,7 @@ export default function interventions() {
       <main className="m-10 min-h-[calc(100vh-57px-97px)] flex-1">
         <Card>
           <CardHeader>
-            <CardTitle>Bilan pédagogique et financier</CardTitle>
+            <CardTitle>Interventions</CardTitle>
           </CardHeader>
           <CardContent>
           <div className="w-[60%] h-[50%] mx-auto"> {/* Adjust the width and height as needed */}
