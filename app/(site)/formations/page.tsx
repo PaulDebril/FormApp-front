@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { getAllFormations, createFormation, deleteFormation, editFormation } from "@/services/formation.service";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Formations() {
   interface Formation {
@@ -35,6 +36,7 @@ export default function Formations() {
         const data = await getAllFormations();
         setFormations(data);
       } catch (error) {
+        toast.error("Erreur lors de la récupération des formations");
         console.error("Error fetching formations:", error);
       }
     }
@@ -48,7 +50,9 @@ export default function Formations() {
       const addedFormation = await createFormation(newFormation);
       setFormations([...formations, addedFormation]);
       setNewFormation({ name: "", address: "", phone: "", documents: [""], logo: "" });
+      toast.success("Formation ajoutée avec succès !");
     } catch (error) {
+      toast.error("Erreur lors de l'ajout de la formation");
       console.error("Error creating formation:", error);
     } finally {
       setIsLoading(false);
@@ -62,7 +66,9 @@ export default function Formations() {
         const updatedFormation = await editFormation(selectedFormation.id.toString(), selectedFormation);
         setFormations(formations.map(f => (f.id === updatedFormation.id ? updatedFormation : f)));
         setSelectedFormation(null); // Close the modal
+        toast.success("Formation modifiée avec succès !");
       } catch (error) {
+        toast.error("Erreur lors de la modification de la formation");
         console.error("Error editing formation:", error);
       } finally {
         setIsLoading(false);
@@ -77,7 +83,9 @@ export default function Formations() {
         await deleteFormation(selectedFormation.id.toString());
         setFormations(formations.filter(f => f.id !== selectedFormation.id));
         setSelectedFormation(null); // Close the modal
+        toast.success("Formation supprimée avec succès !");
       } catch (error) {
+        toast.error("Erreur lors de la suppression de la formation");
         console.error("Error deleting formation:", error);
       } finally {
         setIsLoading(false);
@@ -91,6 +99,7 @@ export default function Formations() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <Toaster position="top-right" />
       <header className="z-[10] sticky top-0 w-full bg-background/95 border-b backdrop-blur-sm dark:bg-black/[0.6] border-border/40">
         <div className="ml-10 container h-14 flex items-center">
           <h2>Organismes de formation</h2>

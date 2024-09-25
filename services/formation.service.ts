@@ -71,6 +71,7 @@ export async function editFormation(formationId: string, updatedData: any) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
+    console.log("Updated formation:", data);
     return data;
   } catch (error) {
     console.error("Error updating formation:", error);
