@@ -1,23 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { getAllFormations } from "@/services/formation.service";
 
 export default function Formations() {
-  const [formations, setFormations] = useState([
-    { id: 1, name: "CESI", logo: "https://placehold.co/1300x400" },
-    { id: 2, name: "OpenClassrooms", logo: "https://placehold.co/1300x400" },
-  ]);
+  interface Formation {
+    id: number;
+    name: string;
+    logo: string;
+  }
 
+  const [formations, setFormations] = useState<Formation[]>([]);
   const [newFormation, setNewFormation] = useState({ name: "", logo: "" });
+
+  useEffect(() => {
+    async function fetchFormations() {
+      try {
+        const data = await getAllFormations();
+        setFormations(data);
+        console.log(data);
+        console.log("test");
+      } catch (error) {
+        console.error("Error fetching formations:", error);
+        
+      }
+    }
+
+    fetchFormations();
+  }, []);
 
   const handleAddFormation = () => {
     setFormations([...formations, { ...newFormation, id: formations.length + 1 }]);
     setNewFormation({ name: "", logo: "" });
+    
   };
 
   return (

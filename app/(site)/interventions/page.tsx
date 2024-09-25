@@ -13,6 +13,8 @@ import { DataThisMonth, columnsThisMonth } from "./columns-thismonth";
 import { DataByCenter, columnsByCenter  } from "./columns-bycenter";
 import { DataTable } from "./data-table";
 import Calendar from './calendar';
+import {getAllIntervention} from '@/services/intervention.service';
+
 
 
 async function getDataThisMonth (): Promise<DataThisMonth[]> {
@@ -26,18 +28,16 @@ async function getDataThisMonth (): Promise<DataThisMonth[]> {
   ];
 }
 
-async function getDataByCenter (): Promise<DataByCenter[]> {
-  return [
-    {
-      session: "Session 23",
-      date : new Date(), 
-      sallecours: "Salle 1",
-      referent: "Référent 1",
-      cours: "Cours 1",
-    }
-  ];
+async function getDataByCenter(): Promise<DataByCenter[]> {
+  try {
+    const data = await getAllIntervention();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données:', error);
+    return [];
+  }
 }
-
 export default async function interventions() {
   const dataThisMonth = await getDataThisMonth();
   const DataByCenter = await getDataByCenter();
