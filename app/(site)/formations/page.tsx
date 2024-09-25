@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { PanelsTopLeft, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,20 +24,26 @@ export default function Formations() {
     <div className="flex flex-col min-h-screen">
       <header className="z-[10] sticky top-0 w-full bg-background/95 border-b backdrop-blur-sm dark:bg-black/[0.6] border-border/40">
         <div className="ml-10 container h-14 flex items-center">
-            <h2>Organismes de formation</h2>
+          <h2>Organismes de formation</h2>
         </div>
       </header>
       <main className="m-10 min-h-[calc(100vh-57px-97px)] flex-1">
         <h2 className="text-2xl font-bold mb-4">Organismes de formation</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
           {formations.map((formation) => (
-            <Card key={formation.id}>
-              <CardHeader>
-                <CardTitle>{formation.name}</CardTitle>
+            <Card key={formation.id} className="flex flex-col">
+              <CardHeader className="flex-1">
+                <CardTitle className="truncate" title={formation.name}>
+                  {formation.name}
+                </CardTitle>
               </CardHeader>
-              <CardContent>
-                <img src={formation.logo} alt={`${formation.name} logo`} className="w-full h-32 object-contain" />
+              <CardContent className="flex-1">
+                <img
+                  src={formation.logo}
+                  alt={`${formation.name} logo`}
+                  className="w-full h-full object-cover"
+                />
               </CardContent>
             </Card>
           ))}
