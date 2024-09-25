@@ -5,25 +5,24 @@ export function Footer() {
     <div className="z-20 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-4 md:mx-8 flex h-14 items-center">
         <p className="text-xs md:text-sm leading-loose text-muted-foreground text-left">
-          Built on top of{" "}
+          Créer par{" "}
           <Link
-            href="https://ui.shadcn.com"
+            href="https://www.mydigitalschool.com/ecole-multimedia-lille"
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium underline underline-offset-4"
           >
-            shadcn/ui
+            MyDigitalSchool
           </Link>
-          . The source code is available on{" "}
+          . Le code source est disponible sur {" "}
           <Link
-            href="https://github.com/salimi-my/shadcn-ui-sidebar"
+            href="https://github.com/PaulDebril/FormApp-front"
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium underline underline-offset-4"
           >
-            GitHub
-          </Link>
-          .
+            Github 
+          </Link> 
         </p>
       </div>
     </div>
