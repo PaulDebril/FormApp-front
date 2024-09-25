@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { PanelsTopLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Payment, columns } from "./columns";
+import { Data, columns } from "./columns";
 import { DataTable } from "./data-table";
 import {
   Card,
@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-async function getData(): Promise<Payment[]> {
+async function getData(): Promise<Data[]> {
   // Fetch data from your API here.
   return [
     {

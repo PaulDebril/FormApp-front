@@ -23,7 +23,7 @@ export default function billing() {
             <CardTitle>Mes factures</CardTitle>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="center" className="w-[400px]">
+            <Tabs defaultValue="center" >
               <TabsList>
                 <TabsTrigger value="center">Facturation / Centre</TabsTrigger>
                 <TabsTrigger value="intermediate">Facturation / Intermédiaire</TabsTrigger>
