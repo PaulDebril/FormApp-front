@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import {
   Card,
   CardContent,
@@ -7,11 +7,40 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DataThisMonth, columnsThisMonth } from "./columns-thismonth";
+import { DataByCenter, columnsByCenter  } from "./columns-bycenter";
+import { DataTable } from "./data-table";
+import Calendar from './calendar';
 
-export default function interventions() {
+
+async function getDataThisMonth (): Promise<DataThisMonth[]> {
+  return [
+    {
+      centre: "Centre 1",
+      session: "Session 1",
+      date : new Date(), 
+      sallecours: "Salle 1",
+    }
+  ];
+}
+
+async function getDataByCenter (): Promise<DataByCenter[]> {
+  return [
+    {
+      session: "Session 23",
+      date : new Date(), 
+      sallecours: "Salle 1",
+      referent: "Référent 1",
+      cours: "Cours 1",
+    }
+  ];
+}
+
+export default async function interventions() {
+  const dataThisMonth = await getDataThisMonth();
+  const DataByCenter = await getDataByCenter();
   return (
     <div className="flex flex-col min-h-screen">
       <header className="z-[10] sticky top-0 w-full bg-background/95 border-b backdrop-blur-sm dark:bg-black/[0.6] border-border/40">
@@ -25,21 +54,21 @@ export default function interventions() {
             <CardTitle>Interventions</CardTitle>
           </CardHeader>
           <CardContent>
-          <div className="w-[60%] h-[50%] mx-auto"> {/* Adjust the width and height as needed */}
-          <FullCalendar
-              plugins={[dayGridPlugin]}
-              initialView="dayGridMonth"
-              weekends={false}
-              events={[
-                { title: "event 1", date: "2024-09-25" },
-                { title: "event 2", date: "2019-04-02" },
-              ]}
-            />
-            </div>
+            <Tabs defaultValue="calendar">
+              <TabsList>
+                <TabsTrigger value="calendar">Calendrier</TabsTrigger>
+                <TabsTrigger value="thismonth">Ce mois ci</TabsTrigger>
+                <TabsTrigger value="bycenter">Par centre</TabsTrigger>
+              </TabsList>
+              <TabsContent value="calendar">
+                <Calendar />
+              </TabsContent>
+              <TabsContent value="thismonth">
+              <TabsContent value="thismonth"><DataTable columns={columnsThisMonth} data={dataThisMonth}></DataTable></TabsContent>
+              </TabsContent>
+              <TabsContent value="bycenter"><DataTable columns={columnsByCenter} data={DataByCenter}></DataTable></TabsContent>
+            </Tabs>
           </CardContent>
-          <CardFooter>
-            <Button>Ajouter</Button>
-          </CardFooter>
         </Card>
       </main>
     </div>
