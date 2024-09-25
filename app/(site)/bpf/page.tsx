@@ -16,7 +16,7 @@ import { getBPFData } from '@/services/bpf.service';
 
 async function getData(): Promise<Data[]> {
   try {
-    const data = await getBPFData("/1");
+    const data = await getBPFData("/");
     console.log(data);
     return data;
   } catch (error) {

@@ -61,6 +61,11 @@ export default function Formations() {
   }, []);
 
   const handleAddFormation = async () => {
+    if (!newFormation.name.trim()) {
+      toast.error("Le nom de l'organisme est obligatoire !");
+      return;
+    }
+
     setIsLoading(true);
     try {
       const addedFormation = await createFormation(newFormation);
@@ -84,6 +89,11 @@ export default function Formations() {
 
   
   const handleEditFormation = async () => {
+    if (selectedFormation && !selectedFormation.name.trim()) {
+      toast.error("Le nom de l'organisme est obligatoire !");
+      return;
+    }
+
     if (selectedFormation) {
       setIsLoading(true);
       try {
@@ -155,7 +165,7 @@ export default function Formations() {
               </CardHeader>
               <CardContent className="flex-1">
                 <img
-                  src={formation.logo}
+                  src={formation.logo || "https://placehold.co/400x400?text=No+Image"}
                   alt={`${formation.name} logo`}
                   className="w-full h-full object-cover"
                 />
@@ -275,7 +285,8 @@ export default function Formations() {
               </DialogDescription>
 
               <div className="space-y-4 mt-4">
-                <label htmlFor="edit-name">Nom de l'organisme</label>
+              <div className="mb-3">
+                <Label htmlFor="edit-name">Nom de l'organisme</Label>
                 <Input
                   id="edit-name"
                   placeholder="Nom de l'organisme"
@@ -287,8 +298,9 @@ export default function Formations() {
                     })
                   }
                 />
-
-                <label htmlFor="edit-address">Adresse</label>
+              </div>
+              <div className="mb-3">
+                <Label htmlFor="edit-address">Adresse</Label>
                 <Input
                   id="edit-address"
                   placeholder="Adresse"
@@ -300,8 +312,10 @@ export default function Formations() {
                     })
                   }
                 />
+                </div>
 
-                <label htmlFor="edit-phone">Téléphone</label>
+                <div className="mb-3">
+                <Label htmlFor="edit-phone">Téléphone</Label>
                 <Input
                   id="edit-phone"
                   placeholder="Téléphone"
@@ -313,8 +327,10 @@ export default function Formations() {
                     })
                   }
                 />
+                </div>
 
-                <label htmlFor="edit-documents">Lien du document</label>
+                <div className="mb-3">
+                <Label htmlFor="edit-documents">Lien du document</Label>
                 <Input
                   id="edit-documents"
                   placeholder="Lien du document"
@@ -326,8 +342,10 @@ export default function Formations() {
                     })
                   }
                 />
+              </div>
 
-                <label htmlFor="edit-logo">Lien du logo</label>
+              <div className="mb-3">
+                <Label htmlFor="edit-logo">Lien du logo</Label>
                 <Input
                   id="edit-logo"
                   placeholder="Lien du logo"
@@ -340,7 +358,9 @@ export default function Formations() {
                   }
                 />
               </div>
+              </div>
 
+              
               <div className="mt-4 flex justify-end space-x-4">
                 <Button
                   onClick={handleDeleteFormation}
