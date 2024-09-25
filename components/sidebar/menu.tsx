@@ -21,9 +21,18 @@ interface MenuProps {
   isOpen: boolean | undefined;
 }
 
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+}
 export function Menu({ isOpen }: MenuProps) {
   const pathname = usePathname();
   const menuList = getMenuList(pathname);
+  const today = new Date();
+  const date = formatDate(today);
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
@@ -104,8 +113,9 @@ export function Menu({ isOpen }: MenuProps) {
               )}
             </li>
           ))}
-          <li className="w-full grow flex items-end ">
-            <ModeToggle></ModeToggle>
+          <li className="w-full grow flex justify-between items-end">
+            <ModeToggle />
+            <span>{date}</span>
           </li>
         </ul>
       </nav>

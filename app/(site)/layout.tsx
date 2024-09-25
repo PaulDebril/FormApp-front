@@ -8,16 +8,14 @@ export default function MainLayout({
 }>) {
   return (
     <main>
-      <AdminPanelLayout>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </AdminPanelLayout>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <AdminPanelLayout>{children}</AdminPanelLayout>
+      </ThemeProvider>
     </main>
   );
 }
