@@ -6,38 +6,87 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { getAllFormations } from "@/services/formation.service";
+import { getAllFormations, createFormation, deleteFormation, editFormation } from "@/services/formation.service";
 
 export default function Formations() {
   interface Formation {
     id: number;
     name: string;
+    address: string;
+    phone: string;
+    documents: string[];
     logo: string;
   }
 
   const [formations, setFormations] = useState<Formation[]>([]);
-  const [newFormation, setNewFormation] = useState({ name: "", logo: "" });
+  const [selectedFormation, setSelectedFormation] = useState<Formation | null>(null);
+  const [newFormation, setNewFormation] = useState({
+    name: "",
+    address: "",
+    phone: "",
+    documents: [""],
+    logo: ""
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchFormations() {
       try {
         const data = await getAllFormations();
         setFormations(data);
-        console.log(data);
-        console.log("test");
       } catch (error) {
         console.error("Error fetching formations:", error);
-        
       }
     }
 
     fetchFormations();
   }, []);
 
-  const handleAddFormation = () => {
-    setFormations([...formations, { ...newFormation, id: formations.length + 1 }]);
-    setNewFormation({ name: "", logo: "" });
-    
+  const handleAddFormation = async () => {
+    setIsLoading(true);
+    try {
+      const addedFormation = await createFormation(newFormation);
+      setFormations([...formations, addedFormation]);
+      setNewFormation({ name: "", address: "", phone: "", documents: [""], logo: "" });
+    } catch (error) {
+      console.error("Error creating formation:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleEditFormation = async () => {
+    if (selectedFormation) {
+      setIsLoading(true);
+      try {
+        const updatedFormation = await editFormation(selectedFormation.id.toString(), selectedFormation);
+        setFormations(formations.map(f => (f.id === updatedFormation.id ? updatedFormation : f)));
+        setSelectedFormation(null); // Close the modal
+      } catch (error) {
+        console.error("Error editing formation:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const handleDeleteFormation = async () => {
+    if (selectedFormation) {
+      setIsLoading(true);
+      try {
+        await deleteFormation(selectedFormation.id.toString());
+        setFormations(formations.filter(f => f.id !== selectedFormation.id));
+        setSelectedFormation(null); // Close the modal
+      } catch (error) {
+        console.error("Error deleting formation:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const handleFormationClick = (formation: Formation) => {
+    setSelectedFormation(formation);
   };
 
   return (
@@ -52,7 +101,7 @@ export default function Formations() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
           {formations.map((formation) => (
-            <Card key={formation.id} className="flex flex-col">
+            <Card key={formation.id} className="flex flex-col cursor-pointer" onClick={() => handleFormationClick(formation)}>
               <CardHeader className="flex-1">
                 <CardTitle className="truncate" title={formation.name}>
                   {formation.name}
@@ -83,24 +132,116 @@ export default function Formations() {
               </DialogDescription>
 
               <div className="space-y-4 mt-4">
+                <label htmlFor="name">Nom de l'organisme</label>
                 <Input
+                  id="name"
                   placeholder="Nom de l'organisme"
                   value={newFormation.name}
                   onChange={(e) => setNewFormation({ ...newFormation, name: e.target.value })}
                 />
+
+                <label htmlFor="address">Adresse</label>
                 <Input
+                  id="address"
+                  placeholder="Adresse"
+                  value={newFormation.address}
+                  onChange={(e) => setNewFormation({ ...newFormation, address: e.target.value })}
+                />
+
+                <label htmlFor="phone">Téléphone</label>
+                <Input
+                  id="phone"
+                  placeholder="Téléphone"
+                  value={newFormation.phone}
+                  onChange={(e) => setNewFormation({ ...newFormation, phone: e.target.value })}
+                />
+
+                <label htmlFor="documents">Lien du document</label>
+                <Input
+                  id="documents"
+                  placeholder="Lien du document"
+                  value={newFormation.documents[0]}
+                  onChange={(e) => setNewFormation({ ...newFormation, documents: [e.target.value] })}
+                />
+
+                <label htmlFor="logo">Lien du logo</label>
+                <Input
+                  id="logo"
                   placeholder="Lien du logo"
                   value={newFormation.logo}
                   onChange={(e) => setNewFormation({ ...newFormation, logo: e.target.value })}
                 />
               </div>
 
-              <Button onClick={handleAddFormation} className="mt-4">
-                Ajouter
+              <Button onClick={handleAddFormation} className="mt-4" disabled={isLoading}>
+                {isLoading ? 'Ajout en cours...' : 'Ajouter'}
               </Button>
             </DialogContent>
           </Dialog>
         </div>
+
+        {/* Modal pour voir et modifier les détails d'une formation */}
+        {selectedFormation && (
+          <Dialog open={!!selectedFormation} onOpenChange={() => setSelectedFormation(null)}>
+            <DialogContent>
+              <DialogTitle>Détails de la formation</DialogTitle>
+              <DialogDescription>
+                Vous pouvez modifier les informations ci-dessous ou supprimer l'organisme de formation.
+              </DialogDescription>
+
+              <div className="space-y-4 mt-4">
+                <label htmlFor="edit-name">Nom de l'organisme</label>
+                <Input
+                  id="edit-name"
+                  placeholder="Nom de l'organisme"
+                  value={selectedFormation.name}
+                  onChange={(e) => setSelectedFormation({ ...selectedFormation, name: e.target.value })}
+                />
+
+                <label htmlFor="edit-address">Adresse</label>
+                <Input
+                  id="edit-address"
+                  placeholder="Adresse"
+                  value={selectedFormation.address}
+                  onChange={(e) => setSelectedFormation({ ...selectedFormation, address: e.target.value })}
+                />
+
+                <label htmlFor="edit-phone">Téléphone</label>
+                <Input
+                  id="edit-phone"
+                  placeholder="Téléphone"
+                  value={selectedFormation.phone}
+                  onChange={(e) => setSelectedFormation({ ...selectedFormation, phone: e.target.value })}
+                />
+
+                <label htmlFor="edit-documents">Lien du document</label>
+                <Input
+                  id="edit-documents"
+                  placeholder="Lien du document"
+                  value={selectedFormation.documents[0]}
+                  onChange={(e) => setSelectedFormation({ ...selectedFormation, documents: [e.target.value] })}
+                />
+
+                <label htmlFor="edit-logo">Lien du logo</label>
+                <Input
+                  id="edit-logo"
+                  placeholder="Lien du logo"
+                  value={selectedFormation.logo}
+                  onChange={(e) => setSelectedFormation({ ...selectedFormation, logo: e.target.value })}
+                />
+              </div>
+
+              <div className="mt-4 flex justify-end space-x-4">
+                <Button onClick={handleDeleteFormation} variant="destructive" disabled={isLoading}>
+                  {isLoading ? 'Suppression...' : 'Supprimer'}
+                </Button>
+                <Button onClick={handleEditFormation} disabled={isLoading}>
+                  {isLoading ? 'Modification...' : 'Modifier'}
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
       </main>
     </div>
   );

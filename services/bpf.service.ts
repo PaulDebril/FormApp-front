@@ -1,6 +1,6 @@
 // services/apiService.ts
 
-const API_BASE_URL = 'http://localhost:3000/api/Intervention/'; // L'URL de base de l'API
+const API_BASE_URL = 'http://localhost:3000/intervention'; // L'URL de base de l'API
 
 export async function getBPFData(endpoint: string) {
   try {
