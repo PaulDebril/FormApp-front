@@ -4,57 +4,49 @@ import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 
 export type Data = {
-  session: string
-  date: Date
-  heures : number 
-  nbEtudiant: number
-  nbEtudiantXHeures: number
-  totalBrut: number
-  totalNet: number
+  nom: string
+  centre: string
+  tarif : number 
+  Type: string
+  tarifparheure: number
+  tjm: number
+  intermediaire: string
 }
 
 export const columns: ColumnDef<Data>[] = [
   {
-    accessorKey: "session",
+    accessorKey: "nom",
     header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Session
+            Nom
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         )
       },
   },
   {
-    accessorKey: "date",
+    accessorKey: "centre",
     header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Date
+            Centre
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         )
       },
   },
   {
-    accessorKey: "nbEtudiant",
-    header: "nbEtudiant",
-  },
-  {
-    accessorKey: "nbEtudiantXHeures",
-    header: "nbEtudiantXHeures",
-  },
-  {
-    accessorKey: "totalBrut",
-    header: () => "Total Brut",
+    accessorKey: "tarif",
+    header: () => "Tarif",
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("totalBrut"))
+      const amount = parseFloat(row.getValue("tarif"))
       const formatted = new Intl.NumberFormat("fr-FR", {
         style: "currency",
         currency: "EUR",
@@ -65,10 +57,10 @@ export const columns: ColumnDef<Data>[] = [
   },
  
   {
-    accessorKey: "totalNet",
-    header: () => "Total Net",
+    accessorKey: "tarifparheure",
+    header: () => "Tarif/heure",
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("totalNet"))
+      const amount = parseFloat(row.getValue("tarifparheure"))
       const formatted = new Intl.NumberFormat("fr-FR", {
         style: "currency",
         currency: "EUR",
@@ -76,5 +68,23 @@ export const columns: ColumnDef<Data>[] = [
  
       return <div className="text-right font-medium">{formatted}</div>
   },
+    },
+    {
+      accessorKey: "tjm",
+      header: () => "TJM",
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue("tjm"))
+        const formatted = new Intl.NumberFormat("fr-FR", {
+          style: "currency",
+          currency: "EUR",
+        }).format(amount)
+   
+        return <div className="text-right font-medium">{formatted}</div>
+    },
+      },
+
+    {
+      accessorKey: "intermediaire",
+      header: "Intermediaire",
     },
 ]
