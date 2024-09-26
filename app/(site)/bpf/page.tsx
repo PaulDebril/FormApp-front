@@ -15,14 +15,36 @@ import {
 import { getBPFData } from '@/services/bpf.service';
 
 async function getData(): Promise<Data[]> {
-  try {
-    const data = await getBPFData("/");
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error('Erreur lors de la récupération des données:', error);
-    return [];
-  }
+  const data = [
+      {
+        session: "Session 1",
+        date: new Date(),
+        heures: 10,
+        nbEtudiant: 5,
+        nbEtudiantXHeures: 50,
+        totalBrut: 1000,
+        totalNet: 800,
+      },
+      {
+        session: "Session 99",
+        date: new Date("2023-12-31"),
+        heures: 10,
+        nbEtudiant: 5,
+        nbEtudiantXHeures: 50,
+        totalBrut: 1000,
+        totalNet: 800,
+      },
+      {
+        session: "Session 8",
+        date: new Date("2022-02-11"),
+        heures: 10,
+        nbEtudiant: 5,
+        nbEtudiantXHeures: 50,
+        totalBrut: 1000,
+        totalNet: 800,
+      },
+    ];
+  return data;
 }
 
 export default async function BPF() {
