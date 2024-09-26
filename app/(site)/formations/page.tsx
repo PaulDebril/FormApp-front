@@ -19,7 +19,7 @@ import {
   createFormation,
   deleteFormation,
   editFormation,
-} from "@/services/formation.service";
+} from "@/services/formation-center.service";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function Formations() {

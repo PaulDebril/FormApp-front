@@ -12,7 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getBPFData } from '@/services/bpf.service';
 
 async function getData(): Promise<Data[]> {
   const data = [

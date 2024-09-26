@@ -1,7 +1,7 @@
-const API_BASE_URL = 'http://localhost:3000/contact';
+const API_BASE_URL = 'http://localhost:3000/mission';
 
-// Récupérer tous les contacts
-export async function getAllContacts() {
+// Récupérer toutes les missions
+export async function getAllMissions() {
   try {
     const response = await fetch(`${API_BASE_URL}`);
     if (!response.ok) {
@@ -9,49 +9,49 @@ export async function getAllContacts() {
     }
     return await response.json();
   } catch (error) {
-    console.error('Error fetching contacts:', error);
+    console.error('Error fetching missions:', error);
     throw error;
   }
 }
 
-// Créer un contact
-export async function createContact(newContactData: any) {
+// Créer une mission
+export async function createMission(newMissionData: any) {
   try {
     const response = await fetch(`${API_BASE_URL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newContactData),
+      body: JSON.stringify(newMissionData),
     });
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
-    console.error('Error creating contact:', error);
+    console.error('Error creating mission:', error);
     throw error;
   }
 }
 
-// Récupérer un contact par ID
-export async function getContactById(contactId: string) {
+// Récupérer une mission par ID
+export async function getMissionById(missionId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${contactId}`);
+    const response = await fetch(`${API_BASE_URL}/${missionId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
-    console.error('Error fetching contact by ID:', error);
+    console.error('Error fetching mission by ID:', error);
     throw error;
   }
 }
 
-// Modifier un contact
-export async function updateContact(contactId: string, updatedData: any) {
+// Modifier une mission
+export async function updateMission(missionId: string, updatedData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${contactId}`, {
+    const response = await fetch(`${API_BASE_URL}/${missionId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -63,15 +63,15 @@ export async function updateContact(contactId: string, updatedData: any) {
     }
     return await response.json();
   } catch (error) {
-    console.error('Error updating contact:', error);
+    console.error('Error updating mission:', error);
     throw error;
   }
 }
 
-// Supprimer un contact
-export async function deleteContact(contactId: string) {
+// Supprimer une mission
+export async function deleteMission(missionId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${contactId}`, {
+    const response = await fetch(`${API_BASE_URL}/${missionId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
@@ -79,7 +79,7 @@ export async function deleteContact(contactId: string) {
     }
     return true;
   } catch (error) {
-    console.error('Error deleting contact:', error);
+    console.error('Error deleting mission:', error);
     throw error;
   }
 }
