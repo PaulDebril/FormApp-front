@@ -1,13 +1,9 @@
-import Link from "next/link";
-import Image from "next/image";
-import { PanelsTopLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Data, columns } from "./columns";
 import { DataTable } from "./data-table";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,

@@ -1,9 +1,13 @@
-const API_BASE_URL = 'http://localhost:3000/formation';
+import { config } from 'dotenv';
+config();
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const ENDPOINT = 'formation';
 
 // Récupérer toutes les formations
 export async function getAllFormations() {
   try {
-    const response = await fetch(`${API_BASE_URL}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -17,7 +21,7 @@ export async function getAllFormations() {
 // Créer une formation
 export async function createFormation(newFormationData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +41,7 @@ export async function createFormation(newFormationData: any) {
 // Récupérer une formation par ID
 export async function getFormationById(formationId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${formationId}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${formationId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -51,7 +55,7 @@ export async function getFormationById(formationId: string) {
 // Modifier une formation
 export async function updateFormation(formationId: string, updatedData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${formationId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${formationId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +75,7 @@ export async function updateFormation(formationId: string, updatedData: any) {
 // Supprimer une formation
 export async function deleteFormation(formationId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${formationId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${formationId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {

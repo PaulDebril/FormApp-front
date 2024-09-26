@@ -1,9 +1,13 @@
-const API_BASE_URL = 'http://localhost:3000/intermediaire';
+import { config } from 'dotenv';
+config();
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const ENDPOINT = 'intermediaire';
 
 // Récupérer tous les intermédiaires
 export async function getAllIntermediaires() {
   try {
-    const response = await fetch(`${API_BASE_URL}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -18,7 +22,7 @@ export async function getAllIntermediaires() {
 // Récupérer un intermédiaire par ID
 export async function getIntermediaireById(intermediaireId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${intermediaireId}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${intermediaireId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -33,7 +37,7 @@ export async function getIntermediaireById(intermediaireId: string) {
 // Créer un nouvel intermédiaire
 export async function createIntermediaire(newIntermediaireData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +58,7 @@ export async function createIntermediaire(newIntermediaireData: any) {
 // Mettre à jour un intermédiaire
 export async function editIntermediaire(intermediaireId: string, updatedIntermediaireData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${intermediaireId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${intermediaireId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +79,7 @@ export async function editIntermediaire(intermediaireId: string, updatedIntermed
 // Supprimer un intermédiaire
 export async function deleteIntermediaire(intermediaireId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${intermediaireId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${intermediaireId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {

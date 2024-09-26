@@ -1,9 +1,13 @@
-const API_BASE_URL = 'http://localhost:3000/contract';
+import { config } from 'dotenv';
+config();
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const ENDPOINT = 'contract';
 
 // Récupérer tous les contrats
 export async function getAllContracts() {
   try {
-    const response = await fetch(`${API_BASE_URL}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -17,7 +21,7 @@ export async function getAllContracts() {
 // Créer un contrat
 export async function createContract(newContractData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +41,7 @@ export async function createContract(newContractData: any) {
 // Récupérer un contrat par ID
 export async function getContractById(contractId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${contractId}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${contractId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -51,7 +55,7 @@ export async function getContractById(contractId: string) {
 // Modifier un contrat
 export async function updateContract(contractId: string, updatedData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${contractId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${contractId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +75,7 @@ export async function updateContract(contractId: string, updatedData: any) {
 // Supprimer un contrat
 export async function deleteContract(contractId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${contractId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${contractId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {

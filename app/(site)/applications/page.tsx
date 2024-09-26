@@ -48,7 +48,7 @@ export default function application() {
               <div className="flex flex-col">
                 <h2 className="mb-4">
                 <span className="inline-block bg-yellow-500 bg-opacity-40 text-white text-sm font-semibold py-1 px-3 rounded-full">
-                J'ai postulé
+                J&aposai postulé
                   </span>
                 </h2>
                 <div className="space-y-4">

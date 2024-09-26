@@ -3,7 +3,7 @@
 "use client"
 
 
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import {
     Select,
     SelectContent,
@@ -115,7 +115,7 @@ export default function SheetComponent({ isOpen, onClose, item, onUpdateItem }: 
                     <Calendar
                       mode="single"
                       selected={date ?? undefined}
-                      onSelect={(day) => setDate(day ?? null)}
+                      onSelect={(day: any) => setDate(day ?? null)}
                       initialFocus
                     />
                 </PopoverContent>

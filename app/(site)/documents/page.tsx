@@ -1,9 +1,6 @@
-import Link from "next/link";
-import { PanelsTopLeft } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 
 export default function Documents() {
   return (
@@ -27,7 +24,7 @@ export default function Documents() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Photo d’identité</CardTitle>
+              <CardTitle>Photo d&apos;identité</CardTitle>
             </CardHeader>
             <CardContent>
               <Input id="photo" type="file" />
@@ -63,7 +60,7 @@ export default function Documents() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Copie de la carte d'identité ou du passeport</CardTitle>
+              <CardTitle>Copie de la carte d&apos;identité ou du passeport</CardTitle>
             </CardHeader>
             <CardContent>
               <Input id="id-card" type="file" />
@@ -93,7 +90,7 @@ export default function Documents() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Accord de cumul d'activité (Pour les agents de la fonction publique)</CardTitle>
+              <CardTitle>Accord de cumul d&apos;activité (Pour les agents de la fonction publique)</CardTitle>
             </CardHeader>
             <CardContent>
               <Input id="cumul-agreement" type="file" />
@@ -120,7 +117,7 @@ export default function Documents() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Attestation de vigilance émanant de l'URSSAF</CardTitle>
+              <CardTitle>Attestation de vigilance émanant de l&apos;URSSAF</CardTitle>
             </CardHeader>
             <CardContent>
               <Input id="urssaf" type="file" />
@@ -129,7 +126,7 @@ export default function Documents() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Attestation d'affiliation à l'URSSAF ou extrait de l'inscription de l'entreprise</CardTitle>
+              <CardTitle>Attestation d&apos;affiliation à l&apos;URSSAF ou extrait de l&apos;inscription de l&apos;entreprise</CardTitle>
             </CardHeader>
             <CardContent>
               <Input id="affiliation" type="file" />

@@ -6,7 +6,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function Missions() {
-  const [selectedTab, setSelectedTab] = useState("missions-par-etat");
+  const [selectedTab] = useState("missions-par-etat");
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -30,7 +30,7 @@ export default function Missions() {
                   Tous les contrats
                 </TabsTrigger>
                 <TabsTrigger value="compteur-heures-centre">
-                  Compteur d'heures / Centre
+                  Compteur d&apos;heures / Centre
                 </TabsTrigger>
               </TabsList>
 
@@ -113,7 +113,7 @@ export default function Missions() {
 
               <TabsContent value="compteur-heures-centre">
                 <h3 className="text-xl font-bold text-center mt-8">
-                  Compteur d'heures / Centre
+                  Compteur d&apos;heures / Centre
                 </h3>
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Skeleton className="h-24 w-full" />

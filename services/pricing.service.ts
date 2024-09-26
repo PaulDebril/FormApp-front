@@ -1,4 +1,7 @@
-const API_BASE_URL = 'http://localhost:3000/pricing';
+import { config } from 'dotenv';
+config();
+
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/pricing`;
 
 // Récupérer toutes les informations de prix
 export async function getAllPricing() {
@@ -68,22 +71,6 @@ export async function editPricing(pricingId: string, updatedPricingData: any) {
     return data;
   } catch (error) {
     console.error("Error updating pricing:", error);
-    throw error;
-  }
-}
-
-// Supprimer un prix
-export async function deletePricing(pricingId: string) {
-  try {
-    const response = await fetch(`${API_BASE_URL}/${pricingId}`, {
-      method: 'DELETE',
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return true;
-  } catch (error) {
-    console.error("Error deleting pricing:", error);
     throw error;
   }
 }

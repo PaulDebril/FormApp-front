@@ -121,7 +121,7 @@ export default function Lessons() {
                 <DialogContent>
                   <DialogTitle>Ajouter un nouveau cours</DialogTitle>
                   <DialogDescription>
-                    Entrez le nom du nouveau cours pour l'ajouter à la liste.
+                    Entrez le nom du nouveau cours pour l&apos;ajouter à la liste.
                   </DialogDescription>
                   <div className="space-y-4 mt-4">
                     <Input
@@ -158,7 +158,7 @@ export default function Lessons() {
                         {category.name}
                       </span>
 
-                      {/* Bouton "Nouveau" dans l'accordéon pour ajouter une leçon */}
+                      {/* Bouton "Nouveau" dans l&apos;accordéon pour ajouter une leçon */}
                       <Dialog
                         open={isLessonDialogOpen && activeCategoryId === category.id}
                         onOpenChange={setIsLessonDialogOpen}
@@ -175,7 +175,7 @@ export default function Lessons() {
                         <DialogContent>
                           <DialogTitle>Ajouter une nouvelle leçon</DialogTitle>
                           <DialogDescription>
-                            Entrez le nom de la leçon pour l'ajouter à {category.name}.
+                            Entrez le nom de la leçon pour l&apos;ajouter à {category.name}.
                           </DialogDescription>
                           <div className="space-y-4 mt-4">
                             <Input

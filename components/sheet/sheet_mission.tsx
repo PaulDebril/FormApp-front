@@ -2,18 +2,10 @@
 
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { CalendarIcon } from "@radix-ui/react-icons";
-import { ClipboardIcon } from "@radix-ui/react-icons";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import { DrawingPinIcon } from "@radix-ui/react-icons";
-import { TargetIcon } from "@radix-ui/react-icons";
 import { HomeIcon } from "@radix-ui/react-icons";
 import { ArrowTopRightIcon } from "@radix-ui/react-icons";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { PersonIcon } from "@radix-ui/react-icons";
-import { SewingPinIcon } from "@radix-ui/react-icons";
-import { ChevronUpIcon } from "@radix-ui/react-icons";
-import { BackpackIcon } from "@radix-ui/react-icons";
-import { TimerIcon } from "@radix-ui/react-icons";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadiobuttonIcon } from "@radix-ui/react-icons";

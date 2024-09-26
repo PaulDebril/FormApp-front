@@ -1,9 +1,13 @@
-const API_BASE_URL = 'http://localhost:3000/contact';
+import { config } from 'dotenv';
+config();
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const ENDPOINT = 'contact';
 
 // Récupérer tous les contacts
 export async function getAllContacts() {
   try {
-    const response = await fetch(`${API_BASE_URL}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -17,7 +21,7 @@ export async function getAllContacts() {
 // Créer un contact
 export async function createContact(newContactData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +41,7 @@ export async function createContact(newContactData: any) {
 // Récupérer un contact par ID
 export async function getContactById(contactId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${contactId}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${contactId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -51,7 +55,7 @@ export async function getContactById(contactId: string) {
 // Modifier un contact
 export async function updateContact(contactId: string, updatedData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${contactId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${contactId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +75,7 @@ export async function updateContact(contactId: string, updatedData: any) {
 // Supprimer un contact
 export async function deleteContact(contactId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${contactId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${contactId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {

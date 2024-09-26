@@ -21,7 +21,7 @@ import { useState } from "react";
 
 export default function Intermediate() {
   const [newCard, setNewCard] = useState({ name: "" });
-  const [cards, setCards] = useState([
+  const [cards] = useState([
     { id: 1, name: "Intervention A" },
     { id: 2, name: "Intervention B" },
     { id: 3, name: "Intervention C" },
@@ -39,7 +39,7 @@ export default function Intermediate() {
     },
   ]);
   const [isGroupDialogOpen, setIsGroupDialogOpen] = useState(false);
-  const [activeGroupId, setActiveGroupId] = useState(null);
+  const [activeGroupId, setActiveGroupId] = useState<number | null>(null);
   const handleAddCard = () => {
     if (newCard.name.trim() === "") {
       alert("Le nom ne peut pas être vide.");

@@ -109,7 +109,7 @@ export default function SheetInterventionsComponent({
         <div className="flex items-center space-x-4 mt-4 justify-between">
           <div className="flex items-center space-x-4">
             <CalendarIcon className="w-4 h-4" />
-            <span className="text-sm text-gray-500">Date d'échéance</span>
+            <span className="text-sm text-gray-500">Date d&apos;échéance</span>
           </div>
           <Popover>
             <PopoverTrigger asChild>
@@ -125,10 +125,10 @@ export default function SheetInterventionsComponent({
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
               <Calendar
-                mode="single"
-                selected={date ?? undefined}
-                onSelect={(day) => setDate(day ?? null)}
-                initialFocus
+              mode="single"
+              selected={date ?? undefined}
+              onSelect={(day: Date | undefined) => setDate(day ?? null)}
+              initialFocus
               />
             </PopoverContent>
           </Popover>
@@ -262,11 +262,11 @@ export default function SheetInterventionsComponent({
           />
         </div>
 
-        {/* Nombre d'étudiants */}
+        {/* Nombre d&apos;étudiants */}
         <div className="flex items-center space-x-4 mt-4 justify-between">
           <div className="flex items-center space-x-4">
             <BackpackIcon className="w-4 h-4" />
-            <span className="text-sm text-gray-500">Nombre d'étudiants</span>
+            <span className="text-sm text-gray-500">Nombre d&apos;étudiants</span>
           </div>
           <input
             type="text"

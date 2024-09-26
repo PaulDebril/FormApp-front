@@ -1,11 +1,14 @@
-// services/formation.service.ts
+import { config } from 'dotenv';
+config();
 
-const API_BASE_URL = 'http://localhost:3000/formation-center';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const ENDPOINT = 'formation-center';
 
 // Récupérer toutes les formations
 export async function getAllFormations() {
   try {
-    const response = await fetch(`${API_BASE_URL}/`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/`);
+    console.error("response", response);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -21,7 +24,7 @@ export async function getAllFormations() {
 // Créer une nouvelle formation
 export async function createFormation(newFormationData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}/`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +46,7 @@ export async function createFormation(newFormationData: any) {
 // Supprimer une formation
 export async function deleteFormation(formationId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${formationId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${formationId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
@@ -60,8 +63,8 @@ export async function deleteFormation(formationId: string) {
 // Mettre à jour une formation 
 export async function editFormation(formationId: string, updatedData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${formationId}`, {
-      method: 'PATCH', 
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${formationId}`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -75,22 +78,6 @@ export async function editFormation(formationId: string, updatedData: any) {
     return data;
   } catch (error) {
     console.error("Error updating formation:", error);
-    throw error;
-  }
-}
-
-// Récupérer une formation par ID
-export async function getFormationById(formationId: string) {
-  try {
-    const response = await fetch(`${API_BASE_URL}/${formationId}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const data = await response.json();
-    console.log("Fetched formation by ID:", data);
-    return data;
-  } catch (error) {
-    console.error("Error fetching formation by ID:", error);
     throw error;
   }
 }

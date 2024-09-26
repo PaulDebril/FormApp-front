@@ -62,7 +62,7 @@ export default function Formations() {
 
   const handleAddFormation = async () => {
     if (!newFormation.name.trim()) {
-      toast.error("Le nom de l'organisme est obligatoire !");
+      toast.error("Le nom de l&apos;organisme est obligatoire !");
       return;
     }
 
@@ -80,7 +80,7 @@ export default function Formations() {
       toast.success("Formation ajoutée avec succès !");
       setIsDialogOpen(false);
     } catch (error) {
-      toast.error("Erreur lors de l'ajout de la formation");
+      toast.error("Erreur lors de l&apos;ajout de la formation");
       console.error("Error creating formation:", error);
     } finally {
       setIsLoading(false);
@@ -90,7 +90,7 @@ export default function Formations() {
   
   const handleEditFormation = async () => {
     if (selectedFormation && !selectedFormation.name.trim()) {
-      toast.error("Le nom de l'organisme est obligatoire !");
+      toast.error("Le nom de l&apos;organisme est obligatoire !");
       return;
     }
 
@@ -190,10 +190,10 @@ export default function Formations() {
 
               <div className="space-y-4 mt-4">
                 <div className="mb-3">
-                  <Label htmlFor="name">Nom de l'organisme</Label>
+                  <Label htmlFor="name">Nom de l&apos;organisme</Label>
                   <Input
                     id="name"
-                    placeholder="Nom de l'organisme"
+                    placeholder="Nom de l&apos;organisme"
                     value={newFormation.name}
                     onChange={(e) =>
                       setNewFormation({ ...newFormation, name: e.target.value })
@@ -270,7 +270,7 @@ export default function Formations() {
           </Dialog>
         </div>
 
-        {/* Modal pour voir et modifier les détails d'une formation */}
+        {/* Modal pour voir et modifier les détails d&apos;une formation */}
         {selectedFormation && (
           <Dialog
             open={!!selectedFormation}
@@ -281,15 +281,15 @@ export default function Formations() {
               <DialogTitle>Détails de la formation</DialogTitle>
               <DialogDescription>
                 Vous pouvez modifier les informations ci-dessous ou supprimer
-                l'organisme de formation.
+                l&apos;organisme de formation.
               </DialogDescription>
 
               <div className="space-y-4 mt-4">
               <div className="mb-3">
-                <Label htmlFor="edit-name">Nom de l'organisme</Label>
+                <Label htmlFor="edit-name">Nom de l&apos;organisme</Label>
                 <Input
                   id="edit-name"
-                  placeholder="Nom de l'organisme"
+                  placeholder="Nom de l&apos;organisme"
                   value={selectedFormation.name}
                   onChange={(e) =>
                     setSelectedFormation({

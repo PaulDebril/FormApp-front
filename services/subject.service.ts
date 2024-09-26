@@ -1,4 +1,7 @@
-const API_BASE_URL = 'http://localhost:3000/subject';
+import { config } from 'dotenv';
+config();
+
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/subject`;
 
 // Récupérer tous les sujets
 export async function getAllSubjects() {
@@ -64,22 +67,6 @@ export async function updateSubject(subjectId: string, updatedData: any) {
     return await response.json();
   } catch (error) {
     console.error('Error updating subject:', error);
-    throw error;
-  }
-}
-
-// Supprimer un sujet
-export async function deleteSubject(subjectId: string) {
-  try {
-    const response = await fetch(`${API_BASE_URL}/${subjectId}`, {
-      method: 'DELETE',
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return true;
-  } catch (error) {
-    console.error('Error deleting subject:', error);
     throw error;
   }
 }

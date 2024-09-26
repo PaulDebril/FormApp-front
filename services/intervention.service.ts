@@ -1,9 +1,14 @@
-const API_BASE_URL = 'http://localhost:3000/intervention';
+import { config } from 'dotenv';
+config();
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const ENDPOINT = 'intervention';
 
 // Récupérer toutes les interventions
 export async function getAllInterventions() {
   try {
-    const response = await fetch(`${API_BASE_URL}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`);
+    console.error(response);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -18,7 +23,7 @@ export async function getAllInterventions() {
 // Récupérer une intervention par ID
 export async function getInterventionById(interventionId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${interventionId}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${interventionId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -33,7 +38,7 @@ export async function getInterventionById(interventionId: string) {
 // Créer une nouvelle intervention
 export async function createIntervention(newInterventionData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +59,7 @@ export async function createIntervention(newInterventionData: any) {
 // Mettre à jour une intervention
 export async function editIntervention(interventionId: string, updatedInterventionData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${interventionId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${interventionId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +80,7 @@ export async function editIntervention(interventionId: string, updatedInterventi
 // Supprimer une intervention
 export async function deleteIntervention(interventionId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${interventionId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${interventionId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {

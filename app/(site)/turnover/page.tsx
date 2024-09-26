@@ -2,7 +2,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -96,7 +95,7 @@ export default async function turnover() {
       <main className="m-10 min-h-[calc(100vh-57px-97px)] flex-1">
         <Card>
           <CardHeader>
-            <CardTitle>Mon chiffre d'affaires</CardTitle>
+            <CardTitle>Mon chiffre d&apos;affaires</CardTitle>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="thismonth">

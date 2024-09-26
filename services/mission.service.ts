@@ -1,9 +1,13 @@
-const API_BASE_URL = 'http://localhost:3000/mission';
+import { config } from 'dotenv';
+config();
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const ENDPOINT = 'mission';
 
 // Récupérer toutes les missions
 export async function getAllMissions() {
   try {
-    const response = await fetch(`${API_BASE_URL}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -17,7 +21,7 @@ export async function getAllMissions() {
 // Créer une mission
 export async function createMission(newMissionData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +41,7 @@ export async function createMission(newMissionData: any) {
 // Récupérer une mission par ID
 export async function getMissionById(missionId: string) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${missionId}`);
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${missionId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -51,7 +55,7 @@ export async function getMissionById(missionId: string) {
 // Modifier une mission
 export async function updateMission(missionId: string, updatedData: any) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${missionId}`, {
+    const response = await fetch(`${API_BASE_URL}/${ENDPOINT}/${missionId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -64,22 +68,6 @@ export async function updateMission(missionId: string, updatedData: any) {
     return await response.json();
   } catch (error) {
     console.error('Error updating mission:', error);
-    throw error;
-  }
-}
-
-// Supprimer une mission
-export async function deleteMission(missionId: string) {
-  try {
-    const response = await fetch(`${API_BASE_URL}/${missionId}`, {
-      method: 'DELETE',
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return true;
-  } catch (error) {
-    console.error('Error deleting mission:', error);
     throw error;
   }
 }
