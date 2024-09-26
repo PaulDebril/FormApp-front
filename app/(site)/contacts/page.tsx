@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { School, AtSign, Phone, UserCog } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Contact = {
   id: number;
@@ -68,6 +69,7 @@ export default function Contacts() {
       schoolId: 2,
     },
   ]);
+  const [isDialogOpenSchool, setIsDialogOpenSchool] = useState(false);
 
   const [newSchool, setNewSchool] = useState<School>({ id: 0, name: "" });
   const [newContact, setNewContact] = useState<Contact>({
@@ -130,21 +132,36 @@ export default function Contacts() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
               <h4 className="text-xl font-bold">Mes établissements</h4>
               <div className="flex flex-col md:flex-row items-center w-full md:w-auto space-y-4 md:space-y-0 md:space-x-4">
-                <Input
-                  placeholder="Nom de l'établissement"
-                  value={newSchool.name}
-                  onChange={(e) =>
-                    setNewSchool({
-                      ...newSchool,
-                      name: e.target.value,
-                    })
-                  }
-                  className="w-full md:w-auto"
-                />
-                <Button onClick={handleAddSchool} className="w-full md:w-auto">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Ajouter un établissement
-                </Button>
+                <Dialog open={isDialogOpenSchool} onOpenChange={setIsDialogOpenSchool}>
+                  <DialogTrigger>
+                    <Button className="w-full md:w-auto">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Ajouter un établissement
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogTitle>Ajouter un établissement</DialogTitle>
+                    <DialogDescription>
+                      <Input
+                        placeholder="Nom de l'établissement"
+                        className="w-full md:w-auto"
+                        value={newSchool.name}
+                        onChange={(e) =>
+                          setNewSchool({ ...newSchool, name: e.target.value })
+                        }
+                      />
+                      <Button
+                      className="mt-4 "
+                        onClick={() => {
+                          handleAddSchool();
+                          setIsDialogOpenSchool(false); 
+                        }}
+                      >
+                        Valider
+                      </Button>
+                    </DialogDescription>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
 
@@ -168,20 +185,32 @@ export default function Contacts() {
                           {contacts
                             .filter((contact) => contact.schoolId === school.id)
                             .map((contact) => (
-                              <Card key={contact.id} className="border ">
-                                <CardHeader>
-                                  <CardTitle className="truncate">
-                                    {contact.name}
-                                  </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                  <img
-                                    src={contact.photo}
-                                    alt={`${contact.name} photo`}
-                                    className="w-full h-32 object-cover"
-                                  />
-                                </CardContent>
-                              </Card>
+                              <Dialog>
+                                <DialogTrigger>
+                                  <Card key={contact.id} className="border ">
+                                    <CardHeader>
+                                      <CardTitle className="truncate">
+                                        {contact.name}
+                                      </CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                      <img
+                                        src={contact.photo}
+                                        alt={`${contact.name} photo`}
+                                        className="w-full h-32 object-cover"
+                                      />
+                                    </CardContent>
+                                  </Card>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogTitle>{contact.name}</DialogTitle>
+                                  <DialogDescription>
+                                    <Skeleton className="h-24 w-full" />
+                                    <Skeleton className="h-3 mt-3 w-full" />
+                                    <Skeleton className="h-3 mt-3 w-full" />
+                                  </DialogDescription>
+                                </DialogContent>
+                              </Dialog>
                             ))}
 
                           <Dialog
@@ -292,46 +321,60 @@ export default function Contacts() {
               <TabsContent value="all" className="w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {contacts.map((contact) => (
-                    <Card key={contact.id} className="border">
-                      <CardHeader>
-                        <CardTitle className="truncate">
-                          {contact.name}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <img
-                          src={contact.photo}
-                          alt={`${contact.name} photo`}
-                          className="w-full h-32 object-cover"
-                        />
+                    <Dialog>
+                      <DialogTrigger>
+                        <Card key={contact.id} className="border">
+                          <CardHeader>
+                            <CardTitle className="truncate">
+                              {contact.name}
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <img
+                              src={contact.photo}
+                              alt={`${contact.name} photo`}
+                              className="w-full h-32 object-cover"
+                            />
 
-                        <div className="mt-2 truncate flex items-center space-x-2">
-                          <UserCog className="w-4 h-4" />
-                          <p>{contact.role}</p>
-                        </div>
+                            <div className="mt-2 truncate flex items-center space-x-2">
+                              <UserCog className="w-4 h-4" />
+                              <p>{contact.role}</p>
+                            </div>
 
-                        <div className="truncate flex items-center space-x-2">
-                          <AtSign className="w-4 h-4" />
-                          <p>{contact.email}</p>
-                        </div>
+                            <div className="truncate flex items-center space-x-2">
+                              <AtSign className="w-4 h-4" />
+                              <p>{contact.email}</p>
+                            </div>
 
-                        <div className="truncate flex items-center space-x-2">
-                          <Phone className="w-4 h-4" />
-                          <p>{contact.phone}</p>
-                        </div>
+                            <div className="truncate flex items-center space-x-2">
+                              <Phone className="w-4 h-4" />
+                              <p>{contact.phone}</p>
+                            </div>
 
-                        <div className="truncate flex items-center space-x-2">
-                          <School className="w-4 h-4" />
-                          <p className="truncate">
-                            {
-                              schools.find(
-                                (school) => school.id === contact.schoolId
-                              )?.name
-                            }
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                            <div className="truncate flex items-center space-x-2">
+                              <School className="w-4 h-4" />
+                              <p className="truncate">
+                                {
+                                  schools.find(
+                                    (school) => school.id === contact.schoolId
+                                  )?.name
+                                }
+                              </p>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogTitle>{contact.name}</DialogTitle>
+                        <DialogDescription>
+                          <Skeleton className="h-24 w-full" />
+                          <Skeleton className="h-3 mt-3 w-full" />
+                          <Skeleton className="h-3 mt-3 w-full" />
+                          <Skeleton className="h-3 mt-3 w-full" />
+                          <Skeleton className="h-3 mt-3 w-full" />
+                        </DialogDescription>
+                      </DialogContent>
+                    </Dialog>
                   ))}
                 </div>
               </TabsContent>
