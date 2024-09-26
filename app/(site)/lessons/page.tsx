@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
-import { Book, Plus } from "lucide-react";
+import { Plus, Book } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +18,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+
 type Category = {
   id: number;
   name: string;
@@ -29,6 +30,15 @@ type Lesson = {
   idCategory: number;
 };
 
+const getRandomColor = () => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
 export default function Lessons() {
   const [categories, setCategories] = useState<Category[]>([
     { id: 1, name: "Marketing" },
@@ -38,7 +48,6 @@ export default function Lessons() {
   const [lessons, setLessons] = useState<Lesson[]>([
     { id: 1, name: "Marketing digital", idCategory: 1 },
     { id: 2, name: "Droit numérique", idCategory: 2 },
-    { id: 2, name: "Droit ...", idCategory: 2 },
   ]);
 
   const [newCategory, setNewCategory] = useState<Category>({ id: 0, name: "" });
@@ -47,7 +56,11 @@ export default function Lessons() {
     name: "",
     idCategory: 0,
   });
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isLessonDialogOpen, setIsLessonDialogOpen] = useState(false);
+  const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
 
+  // Ajouter un nouveau cours (catégorie)
   const handleAddCategory = () => {
     if (newCategory.name.trim() === "") {
       alert("Le nom de la catégorie est requis");
@@ -58,14 +71,15 @@ export default function Lessons() {
       { ...newCategory, id: categories.length + 1 },
     ]);
     setNewCategory({ id: 0, name: "" });
+    setIsDialogOpen(false); // Fermer le dialog
   };
 
+  // Ajouter une nouvelle leçon dans une catégorie
   const handleAddLesson = () => {
     if (newLesson.name.trim() === "") {
-      alert("Le nom du cours est requis");
+      alert("Le nom de la leçon est requis");
       return;
     }
-
     if (activeCategoryId === null) {
       alert("Veuillez sélectionner une catégorie.");
       return;
@@ -76,11 +90,8 @@ export default function Lessons() {
       { ...newLesson, id: lessons.length + 1, idCategory: activeCategoryId },
     ]);
     setNewLesson({ id: 0, name: "", idCategory: 0 });
-    setIsDialogOpen(false);
+    setIsLessonDialogOpen(false); // Fermer le dialog
   };
-
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -96,28 +107,39 @@ export default function Lessons() {
             <CardTitle>Mes cours</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
+            <div className="flex justify-between items-center mb-6">
               <h4 className="text-xl font-bold">Liste des cours</h4>
-              <div className="flex flex-col md:flex-row items-center w-full md:w-auto space-y-3 md:space-y-0 md:space-x-3">
-                <Input
-                  placeholder="Nom du cours"
-                  value={newCategory.name}
-                  onChange={(e) =>
-                    setNewCategory({
-                      ...newCategory,
-                      name: e.target.value,
-                    })
-                  }
-                  className="w-full md:w-auto"
-                />
-                <Button
-                  onClick={handleAddCategory}
-                  className="w-full md:w-auto"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Ajouter un cours
-                </Button>
-              </div>
+
+              {/* Dialog pour ajouter une nouvelle catégorie */}
+              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button className="w-full md:w-auto">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Ajouter une catégorie
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogTitle>Ajouter un nouveau cours</DialogTitle>
+                  <DialogDescription>
+                    Entrez le nom du nouveau cours pour l'ajouter à la liste.
+                  </DialogDescription>
+                  <div className="space-y-4 mt-4">
+                    <Input
+                      placeholder="Nom du cours"
+                      value={newCategory.name}
+                      onChange={(e) =>
+                        setNewCategory({
+                          ...newCategory,
+                          name: e.target.value,
+                        })
+                      }
+                    />
+                    <Button onClick={handleAddCategory}>
+                      Ajouter le cours
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
 
             <Accordion
@@ -127,55 +149,66 @@ export default function Lessons() {
             >
               {categories.map((category) => (
                 <AccordionItem key={category.id} value={`item-${category.id}`}>
-                  <AccordionTrigger >
-                    {category.name}
-                    
+                  <AccordionTrigger>
+                    <div className="flex justify-between items-center w-full">
+                      <span
+                        className="inline-block bg-opacity-40 text-white text-sm font-semibold py-1 px-3 rounded-full"
+                        style={{ backgroundColor: getRandomColor() }}
+                      >
+                        {category.name}
+                      </span>
+
+                      {/* Bouton "Nouveau" dans l'accordéon pour ajouter une leçon */}
+                      <Dialog
+                        open={isLessonDialogOpen && activeCategoryId === category.id}
+                        onOpenChange={setIsLessonDialogOpen}
+                      >
+                        <DialogTrigger asChild>
+                          <Button
+                            className="text-gray-500 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white border-none bg-transparent"
+                            onClick={() => setActiveCategoryId(category.id)}
+                          >
+                            <Plus className="w-4 h-4 mr-2" />
+                            Nouveau
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogTitle>Ajouter une nouvelle leçon</DialogTitle>
+                          <DialogDescription>
+                            Entrez le nom de la leçon pour l'ajouter à {category.name}.
+                          </DialogDescription>
+                          <div className="space-y-4 mt-4">
+                            <Input
+                              placeholder="Nom de la leçon"
+                              value={newLesson.name}
+                              onChange={(e) =>
+                                setNewLesson({
+                                  ...newLesson,
+                                  name: e.target.value,
+                                })
+                              }
+                            />
+                            <Button onClick={handleAddLesson}>
+                              Ajouter la leçon
+                            </Button>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
                   </AccordionTrigger>
                   <AccordionContent>
                     {lessons
                       .filter((lesson) => lesson.idCategory === category.id)
                       .map((lesson) => (
-                        <div className="mt-2 truncate flex items-center space-x-2">
+                        <div
+                          key={lesson.id}
+                          className="mt-2 truncate flex items-center space-x-2"
+                        >
                           <Book className="w-4 h-4" />
                           <p>{lesson.name}</p>
                         </div>
                       ))}
                   </AccordionContent>
-
-                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                    <DialogTrigger asChild>
-                      <Button
-                        onClick={() => setActiveCategoryId(category.id)}
-                        className="w-full md:w-auto text-gray-500 hover:bg-gray-700 hover:text-white dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white border-none bg-transparent mb-3"
-                      >
-                        <Plus className="w-4 mr-2" />
-                        Nouveau
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogTitle>Ajouter un cours</DialogTitle>
-                      <DialogDescription>
-                        Remplissez les informations pour ajouter un nouveau
-                        cours à {category.name}.
-                      </DialogDescription>
-                      <div className="space-y-4 mt-4">
-                        <Input
-                          placeholder="Nom du contact"
-                          value={newLesson.name}
-                          onChange={(e) =>
-                            setNewLesson({
-                              ...newLesson,
-                              name: e.target.value,
-                            })
-                          }
-                        />
-
-                        <Button onClick={handleAddLesson}>
-                          Ajouter le cours
-                        </Button>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
                 </AccordionItem>
               ))}
             </Accordion>
