@@ -18,6 +18,7 @@ import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Intermediate() {
   const [newCard, setNewCard] = useState({ name: "" });
@@ -87,31 +88,41 @@ export default function Intermediate() {
       </header>
       <main className="min-h-[calc(100vh-57px-97px)] flex-1 m-10">
         <Card>
-          
           <CardContent>
             <h3 className="text-xl font-bold text-center mt-8">
-              Interventions intermédiaires
+              Intermédiaires
             </h3>
 
             <div className="mt-8 grid grid-cols-1 md:grid-cols-5 gap-4 px-10">
               {cards.map((card) => (
-                <Card
-                  key={card.id}
-                  className="flex flex-col items-center justify-center p-4 text-center"
-                >
-                  <CardHeader className="flex-1">
-                    <CardTitle className="truncate" title={card.name}>
-                      {card.name}
-                    </CardTitle>
-                  </CardHeader>
-                </Card>
+                <Dialog>
+                  <DialogTrigger>
+                    <Card
+                      key={card.id}
+                      className="flex flex-col items-center justify-center p-4 text-center"
+                    >
+                      <CardHeader className="flex-1">
+                        <CardTitle className="truncate" title={card.name}>
+                          {card.name}
+                        </CardTitle>
+                      </CardHeader>
+                    </Card>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogTitle> {card.name}</DialogTitle>
+                    <DialogDescription>
+                      {" "}
+                      <Skeleton className="h-10 w-full" />
+                    </DialogDescription>
+                  </DialogContent>
+                </Dialog>
               ))}
 
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
-                  <div className="flex flex-col items-center justify-center p-4 border rounded-lg cursor-pointer text-center border-dashed border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors duration-200">
+                  <div className="flex flex-col items-center justify-center p-4 border rounded-lg cursor-pointer text-center border-dashed border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 ">
                     <Plus className="w-6 h-6 text-gray-500" />
-                    <span className="text-gray-500 font-medium">Nouveau</span>
+                    <span className="text-gray-500 ">Nouveau</span>
                   </div>
                 </DialogTrigger>
                 <DialogContent>
@@ -139,7 +150,7 @@ export default function Intermediate() {
             </div>
 
             <h3 className="text-xl font-bold text-center mt-12">
-              Centre par intermédiaire
+              Centres par intermédiaire
             </h3>
 
             <div className="mt-8 px-10">
@@ -154,16 +165,31 @@ export default function Intermediate() {
                     <AccordionContent>
                       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                         {group.cards.map((card) => (
-                          <Card
-                            key={card.id}
-                            className="flex flex-col items-center justify-center p-4 text-center"
-                          >
-                            <CardHeader className="flex-1">
-                              <CardTitle className="truncate" title={card.name}>
-                                {card.name}
-                              </CardTitle>
-                            </CardHeader>
-                          </Card>
+                          <Dialog>
+                            <DialogTrigger>
+                              {" "}
+                              <Card
+                                key={card.id}
+                                className="flex flex-col items-center justify-center p-4 text-center"
+                              >
+                                <CardHeader className="flex-1">
+                                  <CardTitle
+                                    className="truncate"
+                                    title={card.name}
+                                  >
+                                    {card.name}
+                                  </CardTitle>
+                                </CardHeader>
+                              </Card>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogTitle> {card.name}</DialogTitle>
+                              <DialogDescription>
+                                {" "}
+                                <Skeleton className="h-10 w-full" />
+                              </DialogDescription>
+                            </DialogContent>{" "}
+                          </Dialog>
                         ))}
 
                         <Dialog
@@ -172,7 +198,7 @@ export default function Intermediate() {
                         >
                           <DialogTrigger asChild>
                             <div
-                              className="flex flex-col items-center justify-center p-4 border rounded-lg cursor-pointer text-center border-dashed border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors duration-200"
+                              className="flex flex-col items-center justify-center p-4 border rounded-lg cursor-pointer text-center border-dashed border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 "
                               onClick={() => {
                                 setActiveGroupId(group.id);
                                 setIsDialogOpen(true);
@@ -180,7 +206,7 @@ export default function Intermediate() {
                             >
                               <Plus className="w-6 h-6 text-gray-500" />
                               <span className="text-gray-500 font-medium">
-                                Ajouter une carte
+                                Nouveau{" "}
                               </span>
                             </div>
                           </DialogTrigger>
